@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Nos livres
+{% endblock %}
+
+
+{% block categorie %}
+    des livres
+{% endblock  %}
+
+
+{% block lien2 %}{{ path('author_list') }}{% endblock %}
+
+
+{% block content %}
+    {% for book in books %}
+        <article class="preview">
+            <h2>Titre {{ book.title }}</h2>
+            <p>Catégorie {{ book.style }} </br> Nombre de page {{ book.nbPages }} </br> Disponibité :
+                {% if book.inStock == true %}
+                disponible
+                {% else %}
+                    non-disponible
+                 {% endif %}</p>
+        </article>
+    {% endfor %}
+{% endblock %}
+
+
