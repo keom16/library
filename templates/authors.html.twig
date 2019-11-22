@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Nos auteurs
+{% endblock %}
+
+
+{% block categorie %}
+    des auteurs
+{% endblock  %}
+
+{% block content %}
+    {% for author in authors %}
+        <article class="preview">
+            <h2>{{ author.firstName }} {{ author.name }}</h2>
+            <p>né le {{ author.birthDate|date("d/m/Y")}}  {% if author.deathDate is not null %}et mort le {{ author.deathDate|date("d/m/Y") }}{% endif %}</p>
+            <a href="{{ path('author_list', {'id':author.id}) }}" class="button">consulter</a>
+        </article>
+    {% endfor %}
+{% endblock %}
