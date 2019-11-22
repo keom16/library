@@ -13,7 +13,8 @@
 {% block content %}
         <article class="preview">
             <h2>{{ author.firstName }} {{ author.name }}</h2>
-            <p>né le {{ author.birthDate|date("d/m/Y")}}  {% if author.deathDate is not null %}et mort le {{ author.deathDate|date("d/m/Y") }}{% endif %}</p>
+            <p>né le {{ author.birthDate|date("d/m/Y")}}  {% if author.deathDate is not null %}et mort le {{ author.deathDate|date("d/m/y") }}{% endif %}</p>
+            <a href="{{ path('authors_list') }}" class="button">retour</a>
         </article>
 {% endblock %}
 

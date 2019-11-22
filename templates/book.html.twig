@@ -14,17 +14,16 @@
 
 
 {% block content %}
-    {% for book in books %}
         <article class="preview">
             <h2>Titre {{ book.title }}</h2>
             <p>Catégorie {{ book.style }} </br> Nombre de page {{ book.nbPages }} </br> Disponibité :
                 {% if book.inStock %}
-                disponible
+                    disponible
                 {% else %}
                     non-disponible
-                 {% endif %}</p>
+                {% endif %}</p>
+            <a href="{{ path('books_list') }}" class="button">retour</a>
         </article>
-    {% endfor %}
 {% endblock %}
 
 
