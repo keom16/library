@@ -8,12 +8,12 @@
     des auteurs
 {% endblock  %}
 
-{% block lien1 %}{{ path('book_list') }}{% endblock %}
+
 
 {% block content %}
         <article class="preview">
-            <h1>{{ author.firstName }} {{ author.name }}</h1>
-            <p>né le {{ author.birthDate|date("d/m/Y")}} et mort le {{ author.deathDate|date("d/m/Y") }}</p>
+            <h2>{{ author.firstName }} {{ author.name }}</h2>
+            <p>né le {{ author.birthDate|date("d/m/Y")}}  {% if author.deathDate is not null %}et mort le {{ author.deathDate|date("d/m/Y") }}{% endif %}</p>
         </article>
 {% endblock %}
 

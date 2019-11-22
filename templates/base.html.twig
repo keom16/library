@@ -13,11 +13,13 @@
 <body>
 
 <header>
-    <ul>
-        <li><h1 class="titre">Bienvenu sur notre bibliothèque</h1></li>
-        <li><a href="{% block lien1 %}{% endblock %}">Nos livres</a></li>
-        <li><a href="{% block lien2 %}{% endblock %}">Nos auteurs</a></li>
-    </ul>
+    <nav>
+        <ul>
+            <li><h1 class="titre">Bienvenue sur notre bibliothèque</h1></li>
+            <li><a href="{{ path('book_list') }}">Nos livres</a></li>
+            <li><a href="{{ path('author_list') }}">Nos auteurs</a></li>
+        </ul>
+    </nav>
 
 </header>
 

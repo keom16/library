@@ -10,7 +10,7 @@
 {% endblock  %}
 
 
-{% block lien2 %}{{ path('author_list') }}{% endblock %}
+
 
 
 {% block content %}
@@ -18,7 +18,7 @@
         <article class="preview">
             <h2>Titre {{ book.title }}</h2>
             <p>Catégorie {{ book.style }} </br> Nombre de page {{ book.nbPages }} </br> Disponibité :
-                {% if book.inStock == true %}
+                {% if book.inStock %}
                 disponible
                 {% else %}
                     non-disponible
