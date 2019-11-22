@@ -16,7 +16,7 @@
 {% block content %}
         <article class="preview">
             <h2>Titre {{ book.title }}</h2>
-            <p>Catégorie {{ book.style }} </br> Nombre de page {{ book.nbPages }} </br> Disponibité :
+            <p>Catégorie {{ book.style }}  Nombre de page {{ book.nbPages }}  Disponibité :
                 {% if book.inStock %}
                     disponible
                 {% else %}
