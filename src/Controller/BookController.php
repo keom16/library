@@ -30,7 +30,7 @@ class BookController extends AbstractController
 
     /**
      * Annotation pour définir ma route
-     * @Route("/book_list{id}", name="book_list");
+     * @Route("/book_list/{id}", name="book_list");
      */
 
     //méthode qui permet de faire "un select" en BDD d'un id dans ma table Author
@@ -44,5 +44,20 @@ class BookController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/books_bio_search", name="books_bio_search")
+     */
+
+    public function getBooksByStyle(BookRepository $bookRepository)
+    {
+        //Appelle de bookRepository (en le passant en parametre de la methode)
+        //Appelle la méthode qu'on a créé dans le bookRepository ("getByStyle()")
+        //Cette methode est censée nous retourner tous les livres en fonction d'un style
+        //Elle va donc executer une requete SELECT en base de données
+
+       $books =  $bookRepository->getByStyle();
+       dump($books); die;
+    }
 
 }

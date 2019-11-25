@@ -19,32 +19,27 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
-    // /**
-    //  * @return Book[] Returns an array of Book objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+   public function getByStyle()
+   {
+       // - Récuperer le query builder (car c'est le query builder
+       //qui permet de faire la requête SQL
 
-    /*
-    public function findOneBySomeField($value): ?Book
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+       $queryBuilder = $this->createQueryBuilder('b');
+
+       // - Construire la requête façon SQL, mais en PHP
+       // - Traduire la requête e, véritable requête SQL
+
+       $query = $queryBuilder->select('b')
+            ->where('b.style = :genre')
+            ->setParameter('genre','Roman')
+            ->getQuery();
+
+       $books = $query->getArrayResult();
+       return $books;
+
+       // - Executer la requete sql en base de données pour récuprérer les bons livres
+
+
+
+   }
 }

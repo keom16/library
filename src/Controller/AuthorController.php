@@ -30,7 +30,7 @@ class AuthorController extends AbstractController
 
     /**
      * Annotation pour définir ma route
-     * @Route("/author_list{id}", name="author_list");
+     * @Route("/author_list/{id}", name="author_list");
      */
 
     //méthode qui permet de faire "un select" en BDD d'un id dans ma table Author
@@ -43,5 +43,17 @@ class AuthorController extends AbstractController
         return $this->render('author.html.twig', [
             'author' => $author
         ]);
+    }
+
+    /**
+     * @Route("/author_search/{word}", name="author_search")
+     */
+
+    public function getAuthorByBio(AuthorRepository $authorRepository, $word)
+    {
+
+        $authors =  $authorRepository->getByBio($word);
+
+        dump($authors); die;
     }
 }
