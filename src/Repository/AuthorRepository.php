@@ -29,7 +29,7 @@ class AuthorRepository extends ServiceEntityRepository
             ->setParameter('word', '%' . $word . '%')
             ->getQuery();
 
-        $authors = $query->getArrayResult();
+        $authors = $query->getResult();
         return $authors;
 
     }

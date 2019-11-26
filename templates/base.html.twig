@@ -19,13 +19,16 @@
             <li><h1 class="titre">Bienvenue sur notre bibliothèque</h1></li>
             <li><a href="{{ path('books_list') }}">Nos livres</a></li>
             <li><a href="{{ path('authors_list') }}">Nos auteurs</a></li>
+            <li>
+                <form action="" method="get"><input class="searchbar" id="search" type="text" placeholder="recherche" name="search"></form>
+            </li>
         </ul>
     </nav>
 
 </header>
 
 <main>
-    <h1 class="presentation">Retrouvez la liste {% block categorie %}{% endblock %}</h1>
+    <h1 class="presentation"> {% block categorie %}{% endblock %}</h1>
     <div class="contenu">
     {% block content %}
     {% endblock  %}

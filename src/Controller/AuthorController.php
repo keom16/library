@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Repository\AuthorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -51,9 +52,13 @@ class AuthorController extends AbstractController
 
     public function getAuthorByBio(AuthorRepository $authorRepository, $word)
     {
+        //j'appelle ma méthode getByBio de mon repository avec un paramètre ma variable word
+        $authors = $authorRepository->getByBio($word);
 
-        $authors =  $authorRepository->getByBio($word);
+        return $this->render('author_search.html.twig', [
+            'authors' => $authors
+        ]);
 
-        dump($authors); die;
     }
+
 }

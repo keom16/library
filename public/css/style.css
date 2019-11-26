@@ -6,6 +6,11 @@
     font-family: 'Calistoga', cursive;
 }
 
+body{
+    background-image: url("../bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .titre{
     font-size: 30px;
     color: white;
@@ -82,4 +87,13 @@ li a{
 .button:hover{
     background-color: white;
     color: #4CAF50;
+}
+
+.searchbar{
+    float: right;
+    padding: 6px;
+    border: none;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
 }
