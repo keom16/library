@@ -24,6 +24,7 @@
                     non-disponible
                 {% endif %}</p>
             <a href="{{ path('book_list', {'id':book.id}) }}" class="button">consulter</a>
+            <a href="{{ path('book_delete', {'id':book.id}) }}" class="button">supprimer</a>
         </article>
     {% endfor %}
 {% endblock %}
