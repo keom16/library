@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Entity\Author;
+use App\Form\AuthorType;
 use App\Repository\AuthorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +27,7 @@ class AuthorController extends AbstractController
         $authors = $authorRepository->findAll();
 
         //méthode render sui permet d'afficher mon fichier html.twig, et le résultat de ma requête SQL
-        return $this->render('authors.html.twig', [
+        return $this->render('author/authors.html.twig', [
             'authors' => $authors
         ]);
     }
@@ -43,7 +44,7 @@ class AuthorController extends AbstractController
 
 
         //méthode render sui permet d'afficher mon fichier html.twig, et le résultat de ma requête SQL
-        return $this->render('author.html.twig', [
+        return $this->render('author/author.html.twig', [
             'author' => $author
         ]);
     }
@@ -57,7 +58,7 @@ class AuthorController extends AbstractController
     {
         //j'appelle ma méthode getByBio de mon repository avec un paramètre ma variable word
         $authors = $authorRepository->getByBio($word);
-        return $this->render('authorsearch.html.twig', [
+        return $this->render('author/authorsearch.html.twig', [
             'authors' => $authors
         ]);
     }
@@ -85,7 +86,7 @@ class AuthorController extends AbstractController
         $entityManager->flush();
         //Persist et Flush doivent être utilisé ensemble
 
-        return $this->render('authorinsert.html.twig', [
+        return $this->render('author/authorinsert.html.twig', [
             'author'=> $author
         ]);
     }
@@ -103,8 +104,49 @@ class AuthorController extends AbstractController
         // je valide la suppression en bdd avec la méthode flush
         $entityManager->flush();
 
-        return $this->render('authordelete.html.twig', [
+        return $this->render('author/authordelete.html.twig', [
             'author'=> $author
+        ]);
+    }
+
+    /**
+     * @Route("/author/insert_form", name="author_insert_form")
+     */
+
+    public function insertAuthorForm(Request $request, EntityManagerInterface $entityManager)
+    {
+        // J'utilise le gabarit de formulaire pour créer mon formulaire
+        // j'envoie mon formulaire à un fichier twig
+        // et je l'affiche
+        // je crée un nouveau Book,
+        // en créant une nouvelle instance de l'entité Book
+        $author = new author();
+        // J'utilise la méthode createForm pour créer le gabarit / le constructeur de
+        // formulaire pour le Book : BookType (que j'ai généré en ligne de commandes)
+        // Et je lui associe mon entité Book vide
+        $authorForm = $this->createForm(AuthorType::class, $author);
+        // à partir de mon gabarit, je crée la vue de mon formulaire
+        if ($request->isMethod('Post')) {
+            // Je récupère les données de la requête (POST)
+            // et je les associe à mon formulaire
+            $authorForm->handleRequest($request);
+            // Si les données de mon formulaire sont valides
+            // (que les types rentrés dans les inputs sont bons,
+            // que tous les champs obligatoires sont remplis etc)
+            if ($authorForm->isValid()) {
+                // J'enregistre en BDD ma variable $book
+                // qui n'est plus vide, car elle a été remplie
+                // avec les données du formulaire
+                $entityManager->persist($author);
+                $entityManager->flush();
+            }
+        }
+
+        $authorFormView = $authorForm->createView();
+        // je retourne un fichier twig, et je lui envoie ma variable qui contient
+        // mon formulaire
+        return $this->render('author/insert_form.html.twig', [
+            'authorFormView' => $authorFormView
         ]);
     }
 }

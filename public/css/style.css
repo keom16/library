@@ -48,11 +48,11 @@ li a{
     flex-wrap: wrap;
     justify-content: space-around;
     margin: 0 auto;
-    width: 80%;
+    width: 90%;
 }
 
 .preview{
-    margin: 50px;
+    margin: 10px;
     border: #d4d0c9 1px solid;
     flex: 1 0 40%;
     text-align: center;
@@ -96,4 +96,25 @@ li a{
     margin-top: 8px;
     margin-right: 16px;
     font-size: 17px;
+}
+
+.form-all{
+    color: #868686;
+}
+
+form.form {
+    display: table;
+}
+
+div.form {
+    display: table-row;
+}
+
+.label, .input {
+    display: table-cell;
+    margin-bottom: 10px;
+}
+
+label {
+    padding-right: 10px;
 }

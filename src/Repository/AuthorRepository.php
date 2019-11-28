@@ -22,6 +22,7 @@ class AuthorRepository extends ServiceEntityRepository
 
     public function getByBio($word)
     {
+
         $queryBuilder = $this->createQueryBuilder('a');
         $query = $queryBuilder->select('a')
             ->where('a.biography LIKE :word')
