@@ -140,6 +140,7 @@ class AuthorController extends AbstractController
                 $entityManager->persist($author);
                 $entityManager->flush();
             }
+            return $this->redirectToRoute('authors_list');
         }
 
         $authorFormView = $authorForm->createView();

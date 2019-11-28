@@ -176,10 +176,34 @@ class BookController extends AbstractController
         $bookFormView = $bookForm->createView();
         // je retourne un fichier twig, et je lui envoie ma variable qui contient
         // mon formulaire
-        return $this->render('book/insert_form.html.twig', [
+        return $this->render('book/book_form.html.twig', [
             'bookFormView' => $bookFormView
         ]);
     }
 
+    /**
+     * @Route("/book/update_form/{id}", name="book_update_form")
+     */
+    public function updateBookForm(BookRepository $bookRepository, Request $request, EntityManagerInterface $entityManager, $id)
+    {
+        $book = $bookRepository->find($id);
+        $bookForm = $this->createForm(BookType::class, $book);
+        if ($request->isMethod('Post'))
+        {
+            $bookForm->handleRequest($request);
+            if ($bookForm->isValid()) {
+                $entityManager->persist($book);
+                $entityManager->flush();
+            }
+            return $this->redirectToRoute('books_list');
+        }
+        // à partir de mon gabarit, je crée la vue de mon formulaire
+        $bookFormView = $bookForm->createView();
+        // je retourne un fichier twig, et je lui envoie ma variable qui contient
+        // mon formulaire
+        return $this->render('book/book_form.html.twig', [
+            'bookFormView' => $bookFormView
+        ]);
+    }
 
 }
