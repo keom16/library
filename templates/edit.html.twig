@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Nos livres
+{% endblock %}
+
+
+{% block categorie %}
+    des livres
+{% endblock  %}
+
+
+
+
+{% block content %}
+    <form action="{{ path('book_insert') }}" method="POST" class="form-all">
+        <div class="form">
+            <label class="label" for="title">Ajouter le titre : </label>
+            <input class="input" type="text" name="title" id="title" required>
+        </div>
+        <div class="form">
+            <label  class="label" for="Pages">Ajouter le nombre de pages : </label>
+            <input class="input" type="text" name="nbPages" id="nbPages" required>
+        </div>
+        <div class="form">
+            <label class="label" for="text">Ajouter le style : </label>
+            <input class="input" type="text" name="style" id="nbPages" required>
+        </div>
+        <p>Choisir la disponibilité :</p>
+        <div>
+            <input type="checkbox" id="scales" name="inStock"
+                   checked>
+            <label for="scales">Disponible</label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="horns" name="inStock">
+            <label for="horns">Non disponible</label>
+        </div>
+        <div class="form">
+            <input type="submit" value="soumettre">
+        </div>
+    </form>
+{% endblock %}

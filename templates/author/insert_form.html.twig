@@ -1,0 +1,21 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Ajouter
+{% endblock %}
+
+
+{% block categorie %}
+    Veuillez insérer un nouveau livre ou un nouvel auteur:
+{% endblock  %}
+
+{% block content %}
+
+        <article class="preview">
+
+            {{ form(authorFormView) }}
+        </article>
+
+{% endblock %}
