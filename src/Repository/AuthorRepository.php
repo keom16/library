@@ -28,6 +28,7 @@ class AuthorRepository extends ServiceEntityRepository
             ->where('a.biography LIKE :word')
             ->setParameter('word', '%' . $word . '%')
             ->getQuery();
+
         $authors = $query->getResult();
         return $authors;
     }

@@ -1,4 +1,4 @@
-{% extends '../base.html.twig' %}
+{% extends 'baseadmin.html.twig' %}
 
 {% block title %}
     Suppression
@@ -6,6 +6,9 @@
 
 
 {% block categorie %}
-    Vous avez bien supprimé {{ book.title }} !
+    Vous avez bien supprimé le livre : {{ book.title }} !
 {% endblock  %}
 
+{% block return %}
+    <a href="{{ path('books_admin') }}" class="button">retour</a>
+{% endblock %}

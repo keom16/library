@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseadmin.html.twig' %}
 
 {% block title %}
     Enregistrement
@@ -19,7 +19,7 @@
             <h2>{{ author.firstName }} {{ author.name }}</h2>
             <p>né le {{ author.birthDate|date("d/m/Y")}}  {% if author.deathDate is not null %}et mort le {{ author.deathDate|date("d/m/Y") }}{% endif %} </p>
             <p>{{ author.biography }}</p>
-            <a href="{{ path('author_list', {'id':author.id}) }}" class="button">consulter</a>
+            <a href="{{ path('author_admin', {'id':author.id}) }}" class="button">consulter</a>
         </article>
 
 {% endblock %}

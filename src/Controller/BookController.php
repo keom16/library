@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Book;
 use App\Form\BookType;
+use App\Repository\AuthorRepository;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,6 +17,23 @@ use Symfony\Component\Routing\Annotation\Route;
 //création d'une class controleur avec un extends pour hériter des class de l'AbstractController
 class BookController extends AbstractController
 {
+    /**
+     * @Route("/admin/books", name="books_admin");
+     */
+
+    //méthode qui permet de faire "un select" en BDD de l'ensemble de mes champs dans ma table Book
+    public function BooksAdminList(BookRepository $bookRepository)
+    {
+        //J'utilise le repository de book pour pouvoir selectionner tous les élèments de ma table book
+        //Les repositorys en général servent à faire les requêtes select dans les tables
+        $books = $bookRepository->findAll();
+
+        //méthode render sui permet d'afficher mon fichier html.twig, et le résultat de ma requête SQL
+        return $this->render('book/books_admin.html.twig', [
+            'books' => $books
+        ]);
+    }
+
     /**
      * @Route("/books_list", name="books_list");
      */
@@ -33,9 +51,10 @@ class BookController extends AbstractController
         ]);
     }
 
+
     /**
      * Annotation pour définir ma route
-     * @Route("/book_list/{id}", name="book_list");
+     * @Route("/book/{id}", name="book");
      */
 
     //méthode qui permet de faire "un select" en BDD d'un id dans ma table Author
@@ -45,6 +64,22 @@ class BookController extends AbstractController
 
         //méthode render sui permet d'afficher mon fichier html.twig, et le résultat de ma requête SQL
         return $this->render('book/book.html.twig', [
+            'book' => $book
+        ]);
+    }
+
+    /**
+     * Annotation pour définir ma route
+     * @Route("/admin/book/show/{id}", name="book_admin");
+     */
+
+    //méthode qui permet de faire "un select" en BDD d'un id dans ma table Author
+    public function BookAdminList(BookRepository $bookRepository, $id)
+    {
+        $book = $bookRepository->find($id);
+
+        //méthode render sui permet d'afficher mon fichier html.twig, et le résultat de ma requête SQL
+        return $this->render('book/bookadmin.html.twig', [
             'book' => $book
         ]);
     }
@@ -62,11 +97,11 @@ class BookController extends AbstractController
         //Elle va donc executer une requete SELECT en base de données
 
        $books =  $bookRepository->getByStyle();
-       dump($books); die;
+
     }
 
     /**
-     * @Route("/book/edit", name="book_edit")
+     * @Route("/admin/book/edit", name="admin_book_edit")
      */
 
     public function editShow(){
@@ -76,7 +111,7 @@ class BookController extends AbstractController
 
 
     /**
-     * @Route("/book/insert", name="book_insert")
+     * @Route("/admin/book/insert", name="admin_book_insert")
      */
     public function insertBook(EntityManagerInterface $entityManager, Request $request)
     {
@@ -104,7 +139,7 @@ class BookController extends AbstractController
     }
 
     /**
-     * @Route("/book/delete/{id}", name="book_delete")
+     * @Route("/admin/book/delete/{id}", name="admin_book_delete")
      */
     public function deleteBook(BookRepository $bookRepository, EntityManagerInterface $entityManager, $id)
     {
@@ -122,26 +157,38 @@ class BookController extends AbstractController
     }
 
     /**
-     * @Route("/book/update/{id}", name="book_update")
+     * @Route("/admin/book/update/", name="book_update")
      */
-    public function updateBook(BookRepository $bookRepository, EntityManagerInterface $entityManager, $id)
+    public function updateBook(BookRepository $bookRepository, EntityManagerInterface $entityManager, AuthorRepository $authorRepository)
     {
-        //J'utilise le repository de l'entité book pour récupérer un livre en fonction de son id
-        $book = $bookRepository->find($id);
-
-        $book->setTitle('Le nouveau monde');
+        // j'utilise le Repository de l'entité Book pour récupérer un livre
+        // en fonction de son id
+        $book = $bookRepository->find(5);
+        // Je récupère un auteur en fonction de son id
+        $author = $authorRepository->find(2);
+        // Je donne un nouveau titre à mon entité Book
+        $book->setTitle('Les 11 clés du succès');
+        $book->setStyle('Magie');
+        // Dans mon livre, j'utilise le setter SetAuthor pour lui indiquer
+        // quel est l'auteur relié à ce livre (attention, je dois lui
+        // passer une entité author, et non juste un id)
+        $book->setAuthor($author);
+        // je re-enregistre mon livre en BDD avec l'entité manager
         $entityManager->persist($book);
         $entityManager->flush();
 
-
-        return $this->render('book/book.html.twig', [
-            'book' => $book
-        ]);
+        dump('livre modifié'); die;
+        //return $this->render('book/book.html.twig', [
+        //    'book' => $book
+        //]);
     }
 
 
+
+
+
     /**
-     * @Route("/book/insert_form", name="book_insert_form")
+     * @Route("/admin/book/insert_form", name="admin_book_insert_form")
      */
     public function insertBookForm(Request $request, EntityManagerInterface $entityManager)
     {
@@ -177,16 +224,17 @@ class BookController extends AbstractController
         // je retourne un fichier twig, et je lui envoie ma variable qui contient
         // mon formulaire
         return $this->render('book/book_form.html.twig', [
-            'bookFormView' => $bookFormView
+            'bookFormView' => $bookFormView,
         ]);
     }
 
     /**
-     * @Route("/book/update_form/{id}", name="book_update_form")
+     * @Route("/admin/book/update_form/{id}", name="admin_book_update_form")
      */
     public function updateBookForm(BookRepository $bookRepository, Request $request, EntityManagerInterface $entityManager, $id)
     {
         $book = $bookRepository->find($id);
+
         $bookForm = $this->createForm(BookType::class, $book);
         if ($request->isMethod('Post'))
         {
@@ -195,7 +243,7 @@ class BookController extends AbstractController
                 $entityManager->persist($book);
                 $entityManager->flush();
             }
-            return $this->redirectToRoute('books_list');
+            return $this->redirectToRoute('books');
         }
         // à partir de mon gabarit, je crée la vue de mon formulaire
         $bookFormView = $bookForm->createView();

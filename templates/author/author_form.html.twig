@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Ajouter
+{% endblock %}
+
+{% block return %}
+    <a href="{{ path('authors_admin') }}" class="button">retour</a>
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="forms">
+
+            {{ form(authorFormView) }}
+
+
+    </div>
+{% endblock %}
+

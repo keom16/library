@@ -20,17 +20,19 @@ class AuthorType extends AbstractType
                 'label' => 'Nom',
                 'required' => true
             ])
-            ->add('firstName', null, [
+            ->add('firstName', TextType::class, [
                 'label' => 'Prénom',
                 'required' => true
             ])
             ->add('birthDate', DateType::class, [
                 'years' => range(date('Y'), date('Y') - 500),
+                'widget' => 'single_text',
                 'label' => 'Date de naissance',
                 'required' => true
             ])
             ->add('deathDate', DateType::class, [
                 'years' => range(date('Y'), date('Y') - 500),
+                'widget' => 'single_text',
                 'label' => 'Date de décès',
                 'required' => false
             ])

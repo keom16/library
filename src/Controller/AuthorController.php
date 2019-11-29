@@ -16,6 +16,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class AuthorController extends AbstractController
 {
     /**
+     * @Route("/admin/authors", name="authors_admin");
+     */
+
+    //méthode qui permet de faire "un select" en BDD de l'ensemble de mes champs dans ma table Book
+    public function AuthorsAdminList(AuthorRepository $authorRepository)
+    {
+        //J'utilise le repository de book pour pouvoir selectionner tous les élèments de ma table book
+        //Les repositorys en général servent à faire les requêtes select dans les tables
+        $authors = $authorRepository->findAll();
+
+        //méthode render sui permet d'afficher mon fichier html.twig, et le résultat de ma requête SQL
+        return $this->render('author/authorsadmin.html.twig', [
+            'authors' => $authors
+        ]);
+    }
+
+    /**
      * @Route("/authors_list", name="authors_list");
      */
 
@@ -34,7 +51,7 @@ class AuthorController extends AbstractController
 
     /**
      * Annotation pour définir ma route
-     * @Route("/author_list/{id}", name="author_list");
+     * @Route("/author/{id}", name="author");
      */
 
     //méthode qui permet de faire "un select" en BDD d'un id dans ma table Author
@@ -50,14 +67,35 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("/author_search/{word}", name="author_search")
+     * Annotation pour définir ma route
+     * @Route("/admin/author/show/{id}", name="author_admin");
+     */
+
+    //méthode qui permet de faire "un select" en BDD d'un id dans ma table Author
+    public function AuthorAdminList(AuthorRepository $authorRepository, $id)
+    {
+        $author = $authorRepository->find($id);
+
+
+        //méthode render sui permet d'afficher mon fichier html.twig, et le résultat de ma requête SQL
+        return $this->render('author/authoradmin.html.twig', [
+            'author' => $author
+        ]);
+    }
+
+    /**
+     * @Route("/author_search", name="author_search")
      */
 
 
-    public function getAuthorByBio(AuthorRepository $authorRepository, $word)
+    public function getAuthorByBio(AuthorRepository $authorRepository, Request $request)
     {
+        // grâce à la request, je récupère la valeur du parametre get "word"
+        $word = $request->query->get('search');
+
         //j'appelle ma méthode getByBio de mon repository avec un paramètre ma variable word
         $authors = $authorRepository->getByBio($word);
+
         return $this->render('author/authorsearch.html.twig', [
             'authors' => $authors
         ]);
@@ -65,7 +103,7 @@ class AuthorController extends AbstractController
 
 
     /**
-     * @Route("/author/insert", name="author_insert")
+     * @Route("/admin/author/insert", name="admin_author_insert")
      */
 
     public function insertAuthor(EntityManagerInterface $entityManager)
@@ -92,7 +130,7 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("/author/delete/{id}", name="author_delete")
+     * @Route("/admin/author/delete/{id}", name="admin_author_delete")
      */
     public function deleteAuthor(AuthorRepository $authorRepository, EntityManagerInterface $entityManager, $id)
     {
@@ -110,7 +148,7 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("/author/insert_form", name="author_insert_form")
+     * @Route("/admin/author/insert_form", name="admin_author_insert_form")
      */
 
     public function insertAuthorForm(Request $request, EntityManagerInterface $entityManager)
@@ -140,13 +178,37 @@ class AuthorController extends AbstractController
                 $entityManager->persist($author);
                 $entityManager->flush();
             }
-            return $this->redirectToRoute('authors_list');
+            return $this->redirectToRoute('authors');
         }
 
         $authorFormView = $authorForm->createView();
         // je retourne un fichier twig, et je lui envoie ma variable qui contient
         // mon formulaire
-        return $this->render('author/insert_form.html.twig', [
+        return $this->render('author/author_form.html.twig', [
+            'authorFormView' => $authorFormView
+        ]);
+    }
+
+    /**
+     * @Route("/admin/author/update_form/{id}", name="admin_author_update_form")
+     */
+    public function updateAuthorForm(AuthorRepository $authorRepository, Request $request, EntityManagerInterface $entityManager, $id)
+    {
+        $author = $authorRepository->find($id);
+        $authorForm = $this->createForm(AuthorType::class, $author);
+        if ($request->isMethod('Post'))
+        {
+            $authorForm->handleRequest($request);
+            if ($authorForm->isValid()) {
+                $entityManager->persist($author);
+                $entityManager->flush();
+            }
+            return $this->redirectToRoute('authors');
+        }
+
+        $authorFormView = $authorForm->createView();
+
+        return $this->render('author/author_form.html.twig', [
             'authorFormView' => $authorFormView
         ]);
     }

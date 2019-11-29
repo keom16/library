@@ -6,11 +6,7 @@
     font-family: 'Calistoga', cursive;
 }
 
-body{
-    background-image: url("../bg.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+
 .titre{
     font-size: 30px;
     color: white;
@@ -35,12 +31,13 @@ li a{
     color: white;
 }
 
+
 .presentation{
-    font-size: 30px;
+    font-size: 20px;
     color: #868686;
     text-transform: uppercase;
     text-align: center;
-    margin: 50px;
+
 }
 
 .contenu{
@@ -54,7 +51,7 @@ li a{
 .preview{
     margin: 10px;
     border: #d4d0c9 1px solid;
-    flex: 1 0 40%;
+    flex: 1 0 100%;
     text-align: center;
     background-color: #d4d0c9;
     color: #868686;
@@ -65,6 +62,7 @@ li a{
 .preview h2 {
     text-transform: uppercase;
     padding-bottom: 10px;
+    font-size: 20px;
 }
 
 .preview p {
@@ -117,4 +115,10 @@ div.form {
 
 label {
     padding-right: 10px;
+}
+
+.forms{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
