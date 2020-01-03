@@ -4,29 +4,28 @@
     Nos livres
 {% endblock %}
 
-
 {% block categorie %}
-    Retrouvez la liste des livres
+    Retrouvez la liste des livres :
 {% endblock  %}
-
-
-
-
 
 {% block content %}
     {% for book in books %}
         <article class="preview">
             <h2>Titre : {{ book.title }}</h2>
-            <p>Catégorie : {{ book.style }} </br> Nombre de page : {{ book.nbPages }} </br> Disponibité :
+            {% if book.author is not null %}
+                <p> de : {{ book.author.firstName }} {{ book.author.Name }}</p>
+            {% else %}
+                <p>Auteur non renseigné</p>
+            {% endif %}
+                <p>Catégorie : {{ book.style }} </br> Nombre de page : {{ book.nbPages }} </br> Disponibité :
                 {% if book.inStock %} {# égal à if book.inStock == true #}
                     disponible
                 {% else %} {# égal à else book.inStock == false#}
                     non-disponible
                 {% endif %}</p>
-            <a href="{{ path('book_admin', {'id':book.id}) }}" class="button">consulter</a>
-            <a href="{{ path('admin_book_update_form', {'id':book.id}) }}" class="button">modifier</a>
-            <a href="{{ path('admin_book_delete', {'id':book.id}) }}" class="button">supprimer</a>
-
+                    <a href="{{ path('book_admin', {'id':book.id}) }}" class="button">consulter</a>
+                    <a href="{{ path('admin_book_update_form', {'id':book.id}) }}" class="button">modifier</a>
+                    <a href="{{ path('admin_book_delete', {'id':book.id}) }}" class="button">supprimer</a>
         </article>
     {% endfor %}
 {% endblock %}

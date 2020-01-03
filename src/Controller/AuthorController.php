@@ -177,8 +177,10 @@ class AuthorController extends AbstractController
                 // avec les données du formulaire
                 $entityManager->persist($author);
                 $entityManager->flush();
+
+                return $this->redirectToRoute('authors_admin');
             }
-            return $this->redirectToRoute('authors');
+
         }
 
         $authorFormView = $authorForm->createView();
@@ -202,8 +204,10 @@ class AuthorController extends AbstractController
             if ($authorForm->isValid()) {
                 $entityManager->persist($author);
                 $entityManager->flush();
+
+                return $this->redirectToRoute('authors_admin');
             }
-            return $this->redirectToRoute('authors');
+
         }
 
         $authorFormView = $authorForm->createView();

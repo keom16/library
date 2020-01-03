@@ -1,21 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseadmin.html.twig' %}
 
 {% block title %}
-    Ajouter
+    Ajouter un auteur
 {% endblock %}
 
 {% block return %}
     <a href="{{ path('authors_admin') }}" class="button">retour</a>
 {% endblock %}
 
-
-
 {% block content %}
     <div class="forms">
-
-            {{ form(authorFormView) }}
-
-
+        {{ form(authorFormView) }}
     </div>
 {% endblock %}
 

@@ -8,13 +8,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/home/", name="home")
+     * @Route("/", name="home")
      */
 
-    public function homeShow(){
+    public function homeShow()
+    {
 
         return $this->render('home.html.twig');
     }
@@ -23,8 +25,12 @@ class HomeController extends AbstractController
      * @Route("/admin/home/", name="home_admin")
      */
 
-    public function homeAdminShow(){
-
+    public function homeAdminShow(Request $request)
+    {
+        //$this->denyAccessUnlessGranted('ROLE_ADMIN');
         return $this->render('homeadmin.html.twig');
     }
+
+
+
 }

@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -7,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Calistoga&display=swap" rel="stylesheet">
     <title>{% block title %}{% endblock %}</title>
 </head>
 
@@ -31,13 +32,13 @@
 
     <nav id="navbar">
         <ul>
-            <li><a href="{{ path('home') }}" class="home">Accueil</a></li>
-            <li><a href="{{ path('books_list') }}">Nos livres</a></li>
-            <li><a href="{{ path('authors_list') }}">Nos auteurs</a></li>
-            <li><a href="{{ path('home_admin') }}">Espace Admin</a></li>
+            <li><a href="{{ path('home_admin') }}">Accueil</a></li>
+            <li><a href="{{ path('books_admin') }}">Nos livres</a></li>
+            <li><a href="{{ path('authors_admin') }}">Nos auteurs</a></li>
+            <li><a href="{{ path('admin_author_insert_form') }}">Ajouter un auteur</a></li>
+            <li><a href="{{ path('admin_book_insert_form') }}">Ajouter un livre</a></li>
             <li>
-                <form action="{{ path('author_search') }}" method="GET"><input class="searchbar"
-                id="search" type="text" placeholder="recherche" name="search"></form>
+                <form action="{{ path('author_search') }}" method="GET"><input class="searchbar" id="search" type="text" placeholder="recherche" name="search"></form>
             </li>
         </ul>
     </nav>
@@ -45,21 +46,15 @@
 </header>
 
 <main>
-    <div>
-        {% block home %}
-        {% endblock %}
-    </div>
-    <div>{% block connect %}{% endblock %}</div>
-    <div>
+    <div class="return">
         {% block return %}
-        {% endblock %}
-    </div>
-    <div class="presentation">
-        {% block categorie %}
         {% endblock %}</div>
+    <h1 class="presentation">
+        {% block categorie %}
+        {% endblock %}</h1>
     <div class="contenu">
         {% block content %}
-        {% endblock %}
+        {% endblock  %}
     </div>
 </main>
 
@@ -68,3 +63,4 @@
 </footer>
     <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
 </body>
+</html>

@@ -4,26 +4,19 @@
     Enregistrement
 {% endblock %}
 
-
 {% block categorie %}
-    Merci votre livre est bien enregistré
+    Merci votre livre est bien enregistré.
 {% endblock  %}
 
-
-
-
-
 {% block content %}
-
         <article class="preview">
             <h2>Titre {{ book.title }}</h2>
-            <p>Catégorie {{ book.style }} </br> Nombre de page {{ book.nbPages }} </br> Disponibité :
+                <p>Catégorie {{ book.style }} </br> Nombre de page {{ book.nbPages }} </br> Disponibité :
                 {% if book.inStock %}
                     disponible
                 {% else %}
                     non-disponible
                 {% endif %}</p>
-            <a href="{{ path('book_admin', {'id':book.id}) }}" class="button">consulter</a>
+                    <a href="{{ path('book_admin', {'id':book.id}) }}" class="button">consulter</a>
         </article>
-
 {% endblock %}

@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AuthorRepository")
@@ -28,6 +30,8 @@ class Author
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Assert\LessThan("today")
+     *
      */
     private $birthDate;
 
@@ -38,8 +42,21 @@ class Author
 
     /**
      * @ORM\Column(type="string", length=10000, nullable=true)
+     * @Assert\Regex("/^\w+/")
      */
+
     private $biography;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Book", mappedBy="author")
+     */
+
+    private $book;
+
+    public function __construct()
+    {
+        $this->book = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,4 +122,14 @@ class Author
 
         return $this;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBook()
+    {
+        return $this->book;
+    }
+
+
 }

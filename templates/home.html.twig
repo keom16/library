@@ -4,10 +4,12 @@
     Home
 {% endblock %}
 
+{% block home %}
+    <div>
+        <img src="{{ asset('img/bibliotheque.jpg') }}" class="home_pic" alt="">
 
+        <h1 class="home_title">Bienvenue dans la Bibliothèque Chipie Books</h1>
+        <a href="{{ path('books_list') }}" class="button_home">Découvrir</a>
+    </div>
 
-{% block content %}
-    <article class="preview">
-        <h1>Bienvenue dans notre bibliothèque</h1>
-    </article>
 {% endblock %}

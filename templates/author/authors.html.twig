@@ -4,7 +4,6 @@
     Nos auteurs
 {% endblock %}
 
-
 {% block categorie %}
     Retrouvez la liste des auteurs :
 {% endblock  %}
@@ -14,7 +13,7 @@
         <article class="preview">
             <h2>{{ author.firstName }} {{ author.name }}</h2>
             <p>né le {{ author.birthDate|date("d/m/Y")}}  {% if author.deathDate is not null %}et mort le {{ author.deathDate|date("d/m/Y") }}{% endif %}</p>
-            <p>{{ author.biography }}</p>
+            <p>{{ author.biography | slice(0, 200) }} [...]</p>
             <a href="{{ path('author', {'id':author.id}) }}" class="button">consulter</a>
 
         </article>

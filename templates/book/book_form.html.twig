@@ -10,6 +10,40 @@
 
 {% block content %}
     <div class="forms">
-        {{ form(bookFormView) }}
+
+        {# j'utilise la fonction form_start pour insérer la balise form #}
+        {{ form_start(bookFormView) }}
+
+        {# j'utilise les fonctions form_errors, form_label et form_widget
+         pour afficher respectivement les erreurs, le label et l'input pour
+         mon champs title #}
+        {{ form_errors(bookFormView.title) }}
+        {{ form_label(bookFormView.title) }}
+
+        {# j'utilise le parametre 'attr' pour pouvoir attribuer une classe css
+         à mon input #}
+        {{ form_widget(bookFormView.title, { 'attr': {'class': 'book_form_title_input'} }) }}
+
+        {{ form_errors(bookFormView.style) }}
+        {{ form_label(bookFormView.style) }}
+        {{ form_widget(bookFormView.style) }}
+
+        {{ form_errors(bookFormView.author) }}
+        {{ form_label(bookFormView.author) }}
+        {{ form_widget(bookFormView.author) }}
+
+        {{ form_errors(bookFormView.nbPages) }}
+        {{ form_label(bookFormView.nbPages) }}
+        {{ form_widget(bookFormView.nbPages) }}
+
+        {{ form_errors(bookFormView.inStock) }}
+        {{ form_label(bookFormView.inStock) }}
+        {{ form_widget(bookFormView.inStock) }}
+
+        {{ form_label(bookFormView.submit) }}
+        {{ form_widget(bookFormView.submit) }}
+
+        {# j'utilise la fonction form_end pour insérer la fermeture de la balise form #}
+        {{ form_end(bookFormView) }}
     </div>
 {% endblock %}

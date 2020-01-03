@@ -5,16 +5,14 @@
     Résultat de votre recherche
 {% endblock %}
 
-
 {% block categorie %}
-    Retrouvez le résultat de votre recherche
+    Retrouvez le résultat de votre recherche :
 {% endblock  %}
 
 {% block content %}
     {% for author in authors %}
         <article class="preview">
             <h2>{{ author.firstName }} {{ author.name }}</h2>
-
         </article>
     {% endfor %}
 {% endblock %}

@@ -5,15 +5,16 @@
 {% endblock %}
 
 {% block categorie %}
-    des auteurs
+    des auteurs.
 {% endblock  %}
 
-
-
 {% block content %}
-        <article class="preview">
+        <article class="preview_author">
             <h2>{{ author.firstName }} {{ author.name }}</h2>
-            <p>né le {{ author.birthDate|date("d/m/Y")}}  {% if author.deathDate is not null %}et mort le {{ author.deathDate|date("d/m/y") }}{% endif %}</p>
+            <p>né le {{ author.birthDate | date("d/m/Y") }}  {% if author.deathDate is not null %}et mort le {{ author.deathDate | date("d/m/y") }}{% endif %}</p>
+            {% for book in author.book %}
+            <p>Ses oeuvres : {{ book.title }}</p>
+            {% endfor %}
             <p>{{ author.biography }}</p>
             <a href="{{ path('authors_list') }}" class="button">retour</a>
         </article>

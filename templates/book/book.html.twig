@@ -4,27 +4,18 @@
     Nos livres
 {% endblock %}
 
-
-{% block categorie %}
-    des livres
-{% endblock  %}
-
-
-
-
-
 {% block content %}
         <article class="preview">
             <h2>Titre {{ book.title }}</h2>
-            <p>Catégorie {{ book.style }} </p>
-            <p>Nombre de page {{ book.nbPages }}</p>
-            <p>Disponibité :
-                {% if book.inStock %}
-                    disponible
-                {% else %}
-                    non-disponible
-                {% endif %}</p>
-            <a href="{{ path('books_list') }}" class="button">retour</a>
+                <p>Catégorie {{ book.style }} </p>
+                <p>Nombre de page {{ book.nbPages }}</p>
+                <p>Disponibité :
+                    {% if book.inStock %}
+                        disponible
+                    {% else %}
+                        non-disponible
+                    {% endif %}</p>
+                        <a href="{{ path('books_list') }}" class="button">retour</a>
         </article>
 {% endblock %}
 

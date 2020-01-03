@@ -5,16 +5,13 @@
 {% endblock %}
 
 {% block categorie %}
-    des auteurs
 {% endblock  %}
 
-
-
 {% block content %}
-    <article class="preview">
+    <article class="preview_author">
         <h2>{{ author.firstName }} {{ author.name }}</h2>
-        <p>né le {{ author.birthDate|date("d/m/Y")}}  {% if author.deathDate is not null %}et mort le {{ author.deathDate|date("d/m/y") }}{% endif %}</p>
-        <p>{{ author.biography }}</p>
+            <p>né le {{ author.birthDate|date("d/m/Y")}}  {% if author.deathDate is not null %}et mort le {{ author.deathDate|date("d/m/y") }}{% endif %}</p>
+            <p>{{ author.biography }}</p>
         <a href="{{ path('authors_admin') }}" class="button">retour</a>
     </article>
 {% endblock %}
